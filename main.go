@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"time"
+	"path"
 )
 
 type Filedata struct {
@@ -20,10 +21,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data := []Filedata{}
+	var data []Filedata
 
 	for _, fdirentry := range files {
-		statr, _ := os.Stat(fdirentry.Name())
+		statr, _ := os.Stat(path.Join(os.Args[1], fdirentry.Name()))
 		fdata := Filedata{ Filename: fdirentry.Name(), Size: statr.Size(), Mtime: statr.ModTime()}
 		data = append(data, fdata)
 	}
